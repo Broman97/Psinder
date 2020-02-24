@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "950949201032",
+    "firebase_url": "https://psinder-60020.firebaseio.com",
+    "project_id": "psinder-60020",
+    "storage_bucket": "psinder-60020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950949201032:android:2d937818c5caf1df6e4b3d",
+        "android_client_info": {
+          "package_name": "com.example.psinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950949201032-07ghp8l4soqf3jvu129au0vqt4ht9dfv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.psinder",
+            "certificate_hash": "ba9ddb1137fc0c743db1beb37178213fb89301d2"
+          }
+        },
+        {
+          "client_id": "950949201032-icnit0kl0mhi2sfmkjqevnmlqv9ecvm9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcPoNENAock9wrSpbMJc0UzW9KyvNx33Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950949201032-icnit0kl0mhi2sfmkjqevnmlqv9ecvm9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
