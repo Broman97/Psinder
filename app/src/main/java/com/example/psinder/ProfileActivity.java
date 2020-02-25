@@ -134,6 +134,9 @@ public class ProfileActivity extends AppCompatActivity
                 if(dataSnapshot.exists())
                 {
                     String myProfileImage = dataSnapshot.child("profileimage").getValue().toString();
+                    // w tej lini wyzej wypierdala apke jesli nie ma takieg childa :D
+                    // ogolnie ten if wyzej jest spoko, ale datasnapshot jakis jest, ale nie znaczy to
+                    // ze zawiera "profileimage" albo jakies dane z dolu
                     String myUserName = dataSnapshot.child("username").getValue().toString();
                     String myProfileName = dataSnapshot.child("fullname").getValue().toString();
                     String myProfileStatus = dataSnapshot.child("status").getValue().toString();

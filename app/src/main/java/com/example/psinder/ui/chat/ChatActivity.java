@@ -1,10 +1,4 @@
-package com.example.psinder;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.psinder.ui.chat;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,8 +10,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-
+import com.example.psinder.Messages;
+import com.example.psinder.MessagesAdapter;
+import com.example.psinder.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,10 +31,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatActivity extends AppCompatActivity
-{
+public class ChatActivity extends AppCompatActivity {
     private Toolbar ChattoolBar;
     private ImageButton SendMessageButton, SendImagefileButton;
     private EditText userMessageInput;
@@ -48,7 +48,7 @@ public class ChatActivity extends AppCompatActivity
     private LinearLayoutManager linearLayoutManager;
     private MessagesAdapter messageAdapter;
 
-    private String messageReceiverID, messageReceiverName, messageSenderID, saveCurrentDate, saveCurrentTime ;
+    private String messageReceiverID, messageReceiverName, messageSenderID, saveCurrentDate, saveCurrentTime;
 
     private TextView receiverName;
     private CircleImageView receiverProfileImage;
@@ -56,8 +56,7 @@ public class ChatActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
@@ -77,8 +76,7 @@ public class ChatActivity extends AppCompatActivity
 
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 SendMessage();
 
             }
@@ -88,15 +86,12 @@ public class ChatActivity extends AppCompatActivity
         FetchMessages();
     }
 
-    private void FetchMessages()
-    {
+    private void FetchMessages() {
         RootRef.child("Messages").child(messageSenderID).child(messageReceiverID)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s)
-                    {
-                        if(dataSnapshot.exists())
-                        {
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        if (dataSnapshot.exists()) {
                             Messages messages = dataSnapshot.getValue(Messages.class);
                             messagesList.add(messages);
                             messageAdapter.notifyDataSetChanged();
@@ -126,16 +121,12 @@ public class ChatActivity extends AppCompatActivity
                 });
     }
 
-    private void SendMessage()
-    {
+    private void SendMessage() {
         String messageText = userMessageInput.getText().toString();
 
-        if(TextUtils.isEmpty(messageText))
-        {
+        if (TextUtils.isEmpty(messageText)) {
             Toast.makeText(this, "wpisz wiadomosc", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             String message_sender_ref = "Messages/" + messageSenderID + "/" + messageReceiverID;
             String message_receiver_ref = "Messages/" + messageReceiverID + "/" + messageSenderID;
 
@@ -159,20 +150,16 @@ public class ChatActivity extends AppCompatActivity
             messageTextBody.put("from", messageSenderID);
 
             Map messageBodyDetails = new HashMap();
-            messageBodyDetails.put(message_sender_ref + "/" + message_push_id , messageTextBody);
-            messageBodyDetails.put(message_receiver_ref + "/" + message_push_id , messageTextBody);
+            messageBodyDetails.put(message_sender_ref + "/" + message_push_id, messageTextBody);
+            messageBodyDetails.put(message_receiver_ref + "/" + message_push_id, messageTextBody);
 
             RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                 @Override
-                public void onComplete(@NonNull Task task)
-                {
-                    if(task.isSuccessful())
-                    {
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
                         Toast.makeText(ChatActivity.this, "message send succes", Toast.LENGTH_SHORT).show();
                         userMessageInput.setText("");
-                    }
-                    else
-                    {
+                    } else {
                         String message = task.getException().getMessage();
                         Toast.makeText(ChatActivity.this, "Error" + message, Toast.LENGTH_SHORT).show();
                         userMessageInput.setText("");
@@ -183,23 +170,17 @@ public class ChatActivity extends AppCompatActivity
             });
 
 
-
-
-
         }
     }
 
-    private void DisplayReceiverInfo()
-    {
+    private void DisplayReceiverInfo() {
 
         receiverName.setText(messageReceiverName);
 
         RootRef.child("Users").child(messageReceiverID).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                if (dataSnapshot.exists())
-                {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
                     final String profileImage = dataSnapshot.child("profileimage").getValue().toString();
                     Picasso.get().load(profileImage).into(receiverProfileImage);
                 }
@@ -215,8 +196,7 @@ public class ChatActivity extends AppCompatActivity
 
     }
 
-    private void InializeFields()
-    {
+    private void InializeFields() {
         ChattoolBar = (Toolbar) findViewById(R.id.chat_bar_layout);
         setSupportActionBar(ChattoolBar);
 
@@ -229,9 +209,6 @@ public class ChatActivity extends AppCompatActivity
 
         receiverName = (TextView) findViewById(R.id.custom_profile_name);
         receiverProfileImage = (CircleImageView) findViewById(R.id.custom_profile_image);
-
-
-
 
 
         SendMessageButton = (ImageButton) findViewById(R.id.send_message_button);

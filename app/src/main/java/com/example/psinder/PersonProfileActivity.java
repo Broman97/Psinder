@@ -60,7 +60,7 @@ public class PersonProfileActivity extends AppCompatActivity
             {
                 if(dataSnapshot.exists())
                 {
-                    String myProfileImage = dataSnapshot.child("profileimage").getValue().toString();
+                    String myProfileImage = dataSnapshot.child("profileimage").getValue().toString(); // Tu sie wypierdala apka, to samo co Profile Activity
                     String myUserName = dataSnapshot.child("username").getValue().toString();
                     String myProfileName = dataSnapshot.child("fullname").getValue().toString();
                     String myProfileStatus = dataSnapshot.child("status").getValue().toString();

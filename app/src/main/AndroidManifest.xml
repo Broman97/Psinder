@@ -16,7 +16,7 @@
         <activity android:name=".MyPostsActivity"
             android:parentActivityName=".MainActivity"></activity>
         <activity
-            android:name=".ChatActivity"
+            android:name=".ui.chat.ChatActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".PersonProfileActivity" />
@@ -33,7 +33,7 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".ClickPostActivity" />
         <activity android:name=".PostActivity" />
-        <activity android:name=".SetupActivity" />
+        <activity android:name=".ui.setup.SetupActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
